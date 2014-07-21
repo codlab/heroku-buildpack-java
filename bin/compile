@@ -20,7 +20,7 @@ function indent() {
   esac
 }
 
-if [ ! -f /tmp/foo.txt ]
+if [ ! -f /app/graphviz/cmd/dot/dot ]
 then
   current_folder=`pwd`
 
