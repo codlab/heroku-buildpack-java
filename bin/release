@@ -7,7 +7,7 @@ BUILD_DIR=$1
 cat <<EOF
 ---
 config_vars:
-  PATH: /usr/local/bin:/usr/bin:/bin:/app/bin:/app/.jdk/bin:/usr/local/bin:/usr/bin:/bin
+  PATH: /app/graphviz/cmd/dot/:/usr/local/bin:/usr/bin:/bin:/app/bin:/app/.jdk/bin:/usr/local/bin:/usr/bin:/bin
   JAVA_OPTS: -Xmx384m -Xss512k -XX:+UseCompressedOops
   MAVEN_OPTS: -Xmx384m -Xss512k -XX:+UseCompressedOops 
 default_process_types:
