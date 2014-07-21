@@ -4,6 +4,49 @@
 # fail fast
 set -e
 
+current_folder=`pwd`
+
+mktmpdir() {
+  dir=$(mktemp -t fakesu-$1-XXXX)
+  rm -rf $dir
+  mkdir -p $dir
+  echo $dir
+}
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+GRAPHVIZ_BUILD="$(mktmpdir graphviz)"
+
+mkdir -p $CACHE_DIR/.tools/graphviz
+
+export PATH=/sbin:/usr/sbin:$PATH:
+
+echo "-----> Fetching graphviz"
+cd $WGET_BUILD
+curl -O http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.38.0.tar.gz >/dev/null 2>&1
+tar zxvf graphviz-2.38.0.tar.gz >/dev/null 2>&1
+cd graphviz-2.38.0
+echo "-----> Configuring graphviz"
+./configure --prefix=$CACHE_DIR/.tools/graphviz >/dev/null 2>&1
+echo "-----> Compiling graphviz"
+make -j5 >/dev/null 2>&1
+echo "-----> Installing graphviz"
+make install >/dev/null 2>&1
+echo "grapvhiz installed" | indent
+
+cd $current_folder
+
+
 logger -p user.notice -t "slugc[$$]" "language_pack_java java_compile_start"
 
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
