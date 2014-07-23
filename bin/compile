@@ -20,36 +20,17 @@ function indent() {
   esac
 }
 
-if [ ! -f /app/graphviz/cmd/dot/dot ]
+if [ ! -f /app/graphviz/bin/dot ]
 then
   current_folder=`pwd`
 
-
-  BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
-  BUILD_DIR=$1
-  CACHE_DIR=`pwd`
-
-  GRAPHVIZ_BUILD="$(mktmpdir graphviz)"
-
-  mkdir -p $CACHE_DIR/graphviz
-
-  export PATH=/sbin:/usr/sbin:$PATH:
+  export PATH=/app/graphviz/bin:/sbin:/usr/sbin:$PATH:
   
   echo "-----> Fetching graphviz"
-  cd $WGET_BUILD
-  curl -O http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.38.0.tar.gz >/dev/null 2>&1
-  tar zxvf graphviz-2.38.0.tar.gz
-  cd graphviz-2.38.0
-  echo "-----> Configuring graphviz"
-  ./configure --prefix=$CACHE_DIR/graphviz
-  echo "-----> Compiling graphviz"
-  make -j5
-  echo "-----> Installing graphviz"
-  make install
-  echo "grapvhiz installed" | indent
-
-  cd $current_folder
-
+  cd /app/
+  curl -O http://codlab.eu/graphviz.tar.gz >/dev/null 2>&1
+  tar zxvf graphviz.tar.gz
+  rm graphviz.tar.gz
 fi
 
 
