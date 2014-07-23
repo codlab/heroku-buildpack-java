@@ -4,21 +4,14 @@
 # fail fast
 set -e
 
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 
-mktmpdir() {
-  dir=$(mktemp -t fakesu-$1-XXXX)
-  rm -rf $dir
-  mkdir -p $dir
-  echo $dir
-}
 
-function indent() {
-  c='s/^/       /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
+# parse args
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
 
 if [ ! -f /app/graphviz/bin/dot ]
 then
@@ -28,23 +21,19 @@ then
   
   echo "-----> Fetching graphviz"
   echo `pwd`
-  cd /app/
   echo `pwd`
   curl -O http://codlab.eu/graphviz.tar.gz >/dev/null 2>&1
   tar zxvf graphviz.tar.gz
   rm graphviz.tar.gz
+  pwd
   ls
+  
 fi
 
 
 logger -p user.notice -t "slugc[$$]" "language_pack_java java_compile_start"
 
-BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 
-# parse args
-BUILD_DIR=$1
-CACHE_DIR=$2
-ENV_DIR=$3
 
 LOGGER_FLAGS=""
 
