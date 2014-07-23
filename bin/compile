@@ -27,10 +27,13 @@ then
   export PATH=/app/graphviz/bin:/sbin:/usr/sbin:$PATH:
   
   echo "-----> Fetching graphviz"
+  echo `pwd`
   cd /app/
+  echo `pwd`
   curl -O http://codlab.eu/graphviz.tar.gz >/dev/null 2>&1
   tar zxvf graphviz.tar.gz
   rm graphviz.tar.gz
+  ls
 fi
 
 
