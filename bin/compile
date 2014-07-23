@@ -18,14 +18,15 @@ then
   current_folder=`pwd`
 
   export PATH=/app/graphviz/bin:/sbin:/usr/sbin:$PATH:
+  export LD_LIBRARY_PATH=/app/graphviz/bin:$LD_LIBRARY_PATH:
   
   echo "-----> Fetching graphviz"
   echo `pwd`
   echo `pwd`
-  curl -O http://codlab.eu/graphviz.tar.gz >/dev/null 2>&1
-  tar zxvf graphviz.tar.gz
-  rm graphviz.tar.gz
-  pwd
+  #curl -O http://codlab.eu/graphviz.tar.gz >/dev/null 2>&1
+  #tar zxvf graphviz.tar.gz
+  #rm graphviz.tar.gz
+  #pwd
   ls
   
 fi
